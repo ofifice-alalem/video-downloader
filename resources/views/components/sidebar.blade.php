@@ -14,10 +14,10 @@
     <!-- Navigation -->
     <nav class="flex-1 p-4">
         <ul class="space-y-2">
-            <x-sidebar-item icon="home" label="الرئيسية" active="true" />
-            <x-sidebar-item icon="download" label="تنزيل جديد" />
-            <x-sidebar-item icon="history" label="السجل" />
-            <x-sidebar-item icon="settings" label="الإعدادات" />
+            <x-sidebar-item icon="home" label="الرئيسية" href="/" :active="request()->is('/')" />
+            <x-sidebar-item icon="download" label="تنزيل جديد" href="/" :active="false" />
+            <x-sidebar-item icon="history" label="السجل" href="#" :active="false" />
+            <x-sidebar-item icon="settings" label="الإعدادات" href="/settings" :active="request()->is('settings')" />
         </ul>
     </nav>
 

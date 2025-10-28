@@ -1,64 +1,92 @@
 <aside class="w-full lg:w-80 bg-white border-r border-gray-200 p-4 lg:p-6 hidden lg:block">
     <!-- Header -->
     <div class="flex items-center justify-between mb-6">
-        <h2 class="text-lg font-semibold text-gray-900">التنزيلات الأخيرة</h2>
-        <div class="flex space-x-2 space-x-reverse">
-            <button class="p-2 text-gray-400 hover:text-gray-600">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
-                </svg>
-            </button>
-            <button class="p-2 text-gray-400 hover:text-gray-600">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
-                </svg>
-            </button>
-        </div>
+        <h2 class="text-lg font-semibold text-gray-900">التنزيلات الحالية</h2>
+        <button onclick="refreshDownloads()" class="p-2 text-gray-400 hover:text-gray-600">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+            </svg>
+        </button>
     </div>
 
     <!-- Downloads List -->
-    <div class="space-y-4">
-        <x-download-item 
-            title="فيديو تعليمي - Laravel"
-            status="مكتمل"
-            progress="100"
-            size="45.2 MB"
-            icon="✓"
-            iconColor="text-green-500"
-        />
-        
-        <x-download-item 
-            title="مقطع موسيقي - أغنية جديدة"
-            status="جاري التنزيل"
-            progress="65"
-            size="12.8 MB"
-            icon="↓"
-            iconColor="text-blue-500"
-        />
-        
-        <x-download-item 
-            title="محاضرة - البرمجة الكائنية"
-            status="في الانتظار"
-            progress="0"
-            size="128.5 MB"
-            icon="⏸"
-            iconColor="text-yellow-500"
-        />
-        
-        <x-download-item 
-            title="فيلم قصير - تجريبي"
-            status="مكتمل"
-            progress="100"
-            size="256.7 MB"
-            icon="✓"
-            iconColor="text-green-500"
-        />
+    <div id="activeDownloadsList" class="space-y-4">
+        <div class="text-center text-gray-500 py-8">
+            <svg class="w-12 h-12 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/>
+            </svg>
+            <p>لا يوجد تنزيلات حالية</p>
+        </div>
     </div>
 
-    <!-- Total Balance Section -->
+    <!-- Stats Section -->
     <div class="mt-8 p-4 bg-gray-50 rounded-lg">
         <div class="text-sm text-gray-600 mb-1">إجمالي المساحة المستخدمة</div>
         <div class="text-2xl font-bold text-gray-900">2.4 GB</div>
         <div class="text-sm text-green-600">+156 MB اليوم</div>
     </div>
 </aside>
+
+<script>
+let downloadInterval;
+
+function refreshDownloads() {
+    fetch('/active-downloads')
+        .then(response => response.json())
+        .then(downloads => {
+            const container = document.getElementById('activeDownloadsList');
+            
+            if (downloads.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-gray-500 py-8">
+                        <svg class="w-12 h-12 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/>
+                        </svg>
+                        <p>لا يوجد تنزيلات حالية</p>
+                    </div>
+                `;
+                if (downloadInterval) {
+                    clearInterval(downloadInterval);
+                    downloadInterval = null;
+                }
+            } else {
+                container.innerHTML = downloads.map(download => `
+                    <div class="p-3 bg-white rounded-lg border border-gray-100 hover:shadow-md transition-shadow">
+                        <div class="flex items-center space-x-3 space-x-reverse">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500">
+                                    <svg class="w-5 h-5 animate-spin" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-sm font-medium text-gray-900 truncate" title="${download.title}">${download.title}</h3>
+                                <div class="flex items-center justify-between mt-1">
+                                    <span class="text-xs text-blue-600">${download.status}</span>
+                                    <span class="text-xs text-gray-500">${Math.round(download.progress)}%</span>
+                                </div>
+                                ${download.size ? `<div class="text-xs text-gray-400 mt-1">${download.size} ${download.speed ? '• ' + download.speed : ''}</div>` : ''}
+                                <div class="mt-2 w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full transition-all duration-300" style="width: ${download.progress}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                // Start auto-refresh if not already running
+                if (!downloadInterval) {
+                    downloadInterval = setInterval(refreshDownloads, 2000);
+                }
+            }
+        })
+        .catch(error => console.error('Error fetching downloads:', error));
+}
+
+// Auto-refresh on page load and debug
+document.addEventListener('DOMContentLoaded', function() {
+    refreshDownloads();
+    console.log('Downloads panel initialized');
+});
+</script>
