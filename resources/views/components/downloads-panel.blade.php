@@ -19,6 +19,14 @@
         </div>
     </div>
 
+    <!-- Recent Downloads Section -->
+    <div class="mt-8">
+        <h3 class="text-md font-semibold text-gray-900 mb-4">التحميلات الأخيرة</h3>
+        <div id="recentDownloadsList" class="space-y-3">
+            <!-- Recent downloads will be loaded here -->
+        </div>
+    </div>
+
     <!-- Stats Section -->
     <div class="mt-8 p-4 bg-gray-50 rounded-lg">
         <div class="text-sm text-gray-600 mb-1">إجمالي المساحة المستخدمة</div>
@@ -70,6 +78,18 @@ function refreshDownloads() {
                                 <div class="mt-2 w-full bg-gray-200 rounded-full h-2">
                                     <div class="bg-blue-500 h-2 rounded-full transition-all duration-300" style="width: ${download.progress}%"></div>
                                 </div>
+                                <div class="flex items-center justify-end space-x-2 space-x-reverse mt-2">
+                                    <button onclick="pauseDownload('${download.id}')" class="p-1 text-yellow-600 hover:text-yellow-800" title="إيقاف مؤقت">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                    <button onclick="cancelDownload('${download.id}')" class="p-1 text-red-600 hover:text-red-800" title="إلغاء">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -84,9 +104,98 @@ function refreshDownloads() {
         .catch(error => console.error('Error fetching downloads:', error));
 }
 
+function loadRecentDownloads() {
+    fetch('/recent-downloads')
+        .then(response => response.json())
+        .then(downloads => {
+            const container = document.getElementById('recentDownloadsList');
+            
+            if (downloads.length === 0) {
+                container.innerHTML = '<p class="text-sm text-gray-500 text-center py-4">لا يوجد تحميلات أخيرة</p>';
+            } else {
+                container.innerHTML = downloads.map(download => `
+                    <div class="flex items-center space-x-3 space-x-reverse p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <div class="flex-shrink-0">
+                            ${download.thumbnail ? 
+                                `<img src="${download.thumbnail}" alt="صورة مصغرة" class="w-12 h-8 rounded object-cover border border-gray-200" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                                <div class="w-12 h-8 rounded bg-green-100 items-center justify-center text-green-600 hidden">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>` :
+                                `<div class="w-12 h-8 rounded bg-green-100 flex items-center justify-center text-green-600">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>`
+                            }
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-medium text-gray-900 truncate" title="${download.title}">${download.title}</h4>
+                            <div class="flex items-center justify-between mt-1">
+                                <span class="text-xs text-gray-500">${download.size}</span>
+                                <span class="text-xs text-gray-400">${download.date}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        })
+        .catch(error => console.error('Error loading recent downloads:', error));
+}
+
+function pauseDownload(downloadId) {
+    fetch('/pause-download', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({ download_id: downloadId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            refreshDownloads();
+        } else {
+            alert(data.message || 'فشل في إيقاف التنزيل');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('حدث خطأ في إيقاف التنزيل');
+    });
+}
+
+function cancelDownload(downloadId) {
+    if (confirm('هل أنت متأكد من إلغاء هذا التنزيل؟')) {
+        fetch('/cancel-download', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ download_id: downloadId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                refreshDownloads();
+            } else {
+                alert(data.message || 'فشل في إلغاء التنزيل');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('حدث خطأ في إلغاء التنزيل');
+        });
+    }
+}
+
 // Auto-refresh on page load and debug
 document.addEventListener('DOMContentLoaded', function() {
     refreshDownloads();
+    loadRecentDownloads();
     console.log('Downloads panel initialized');
 });
 </script>
