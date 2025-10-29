@@ -1,4 +1,4 @@
-<aside class="w-64 bg-gray-900 text-white flex flex-col fixed lg:relative h-full z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+<aside class="w-64 bg-gray-900 text-white flex flex-col fixed lg:relative h-full z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto scrollbar-thin">
     <!-- Logo -->
     <div class="p-6 border-b border-gray-700">
         <div class="flex items-center space-x-3 space-x-reverse">
@@ -12,7 +12,7 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="flex-1 p-4">
+    <nav class="flex-1 p-4 overflow-y-auto scrollbar-thin">
         <ul class="space-y-2">
             <x-sidebar-item icon="home" label="الرئيسية" href="/" :active="request()->is('/')" />
             <x-sidebar-item icon="download" label="تنزيل جديد" href="/" :active="false" />

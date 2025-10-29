@@ -1,41 +1,5 @@
-<div class="max-w-4xl mx-auto">
-    <!-- Hero Section -->
-    <div class="text-center mb-8">
-        <div class="relative">
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl blur-lg opacity-20"></div>
-            <div class="relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white">
-                <div class="flex items-center justify-center mb-4">
-                    <div class="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-                        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                </div>
-                <h1 class="text-4xl font-bold mb-2">🎥 محمل الفيديوهات</h1>
-                <p class="text-xl text-white/90">حمل فيديوهاتك المفضلة بجودة عالية وبسرعة فائقة</p>
-                <div class="flex items-center justify-center space-x-6 space-x-reverse mt-6 text-white/80">
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        جودة 4K
-                    </div>
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        سريع وآمن
-                    </div>
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        مجاني بالكامل
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="w-full px-6">
+
 
     <div class="bg-white rounded-3xl shadow-2xl p-8 backdrop-blur-sm border border-gray-100">
 
@@ -49,21 +13,21 @@
                 </div>
                 <h2 class="text-xl font-bold text-gray-900">أدخل رابط الفيديو</h2>
             </div>
-            <div class="relative">
+            <div class="space-y-4">
                 <input 
                     type="url" 
                     placeholder="https://www.youtube.com/watch?v=... أو أي رابط فيديو آخر"
-                    class="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 pr-32"
+                    class="w-full px-6 py-4 text-lg text-center border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200"
                     id="videoUrl"
                 >
                 <button 
                     onclick="analyzeVideo()"
-                    class="absolute left-2 top-2 bottom-2 px-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center"
+                    class="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg rounded-2xl hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center justify-center"
                 >
-                    <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-6 h-6 ml-2" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
                     </svg>
-                    تحليل
+                    تحليل الرابط
                 </button>
             </div>
             <div class="flex items-center justify-center space-x-8 space-x-reverse mt-4 text-sm text-gray-500">
@@ -222,13 +186,6 @@ function analyzeVideo() {
         data.qualities.forEach(quality => {
             qualityGrid.innerHTML += `
                 <button onclick="downloadVideo('${quality.quality}')" class="relative p-6 border-2 border-gray-200 rounded-2xl hover:border-blue-500 hover:shadow-xl transition-all duration-300 text-right group bg-gradient-to-br from-white to-gray-50 hover:from-blue-50 hover:to-purple-50">
-                    <div class="absolute top-3 left-3">
-                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/>
-                            </svg>
-                        </div>
-                    </div>
                     <div class="mb-3">
                         <div class="flex items-center justify-between mb-2">
                             <span class="text-2xl font-bold text-gray-900">${quality.quality}</span>
@@ -236,7 +193,14 @@ function analyzeVideo() {
                         </div>
                         <div class="text-sm text-gray-600 font-medium">${quality.size}</div>
                     </div>
-                    <div class="text-xs text-gray-500 group-hover:text-blue-600 transition-colors">انقر للتحميل</div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-xs text-gray-500 group-hover:text-blue-600 transition-colors">انقر للتحميل</div>
+                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"/>
+                            </svg>
+                        </div>
+                    </div>
                 </button>
             `;
         });

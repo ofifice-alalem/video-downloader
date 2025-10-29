@@ -1,4 +1,4 @@
-<aside class="w-full lg:w-80 bg-white border-r border-gray-200 p-4 lg:p-6 hidden lg:block">
+<aside class="w-full lg:w-80 bg-white border-r border-gray-200 p-4 lg:p-6 hidden lg:block h-full overflow-y-auto scrollbar-thin">
     <!-- Header -->
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-lg font-semibold text-gray-900">التنزيلات الحالية</h2>

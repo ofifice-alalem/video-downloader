@@ -6,9 +6,36 @@
             <p class="text-blue-100">تخصيص إعدادات التحميل وإدارة الملفات</p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Download Settings -->
-            <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6">
+        <div class="space-y-6">
+            <!-- Storage Stats -->
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900">إحصائيات التخزين</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div class="p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl">
+                        <div class="text-xs text-blue-600 font-medium">المساحة المستخدمة</div>
+                        <div class="text-2xl font-bold text-blue-700">2.4 GB</div>
+                    </div>
+                    
+                    <div class="p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-xl">
+                        <div class="text-xs text-green-600 font-medium">عدد الملفات</div>
+                        <div class="text-2xl font-bold text-green-700">47</div>
+                    </div>
+                    
+                    <div class="p-4 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl">
+                        <div class="text-xs text-purple-600 font-medium">آخر تحميل</div>
+                        <div class="text-2xl font-bold text-purple-700">اليوم</div>
+                    </div>
+                </div>
+
+                <!-- Download Settings -->
                 <div class="flex items-center mb-6">
                     <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
                         <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
@@ -84,53 +111,45 @@
                 </div>
             </div>
 
-            <!-- Storage Info & Actions -->
-            <div class="space-y-6">
-                <!-- Storage Stats -->
-                <div class="bg-white rounded-2xl shadow-lg p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                            <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-                            </svg>
-                        </div>
-                        <h3 class="font-bold text-gray-900">إحصائيات التخزين</h3>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div class="p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl">
-                            <div class="text-xs text-blue-600 font-medium">المساحة المستخدمة</div>
-                            <div class="text-2xl font-bold text-blue-700">2.4 GB</div>
-                        </div>
-                        
-                        <div class="p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-xl">
-                            <div class="text-xs text-green-600 font-medium">عدد الملفات</div>
-                            <div class="text-2xl font-bold text-green-700">47</div>
-                        </div>
-                        
-                        <div class="p-4 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl">
-                            <div class="text-xs text-purple-600 font-medium">آخر تحميل</div>
-                            <div class="text-2xl font-bold text-purple-700">اليوم</div>
-                        </div>
-                    </div>
-                </div>
+        </div>
 
-                <!-- Actions -->
-                <div class="bg-white rounded-2xl shadow-lg p-6">
-                    <h3 class="font-bold text-gray-900 mb-4">🔧 الإجراءات</h3>
-                    <div class="space-y-3">
-                        <button class="w-full px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium">
-                            💾 حفظ الإعدادات
-                        </button>
-                        
-                        <button onclick="openDownloadFolder()" class="w-full px-4 py-3 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition-colors font-medium">
-                            📂 فتح مجلد التحميل
-                        </button>
-                        
-                        <button class="w-full px-4 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors font-medium">
-                            🗑️ مسح جميع الملفات
-                        </button>
-                    </div>
+        <!-- Actions -->
+        <div class="bg-white rounded-2xl shadow-lg p-6">
+            <h3 class="font-bold text-gray-900 mb-4 text-center">🔧 الإجراءات</h3>
+            <div class="flex justify-center space-x-3 space-x-reverse">
+                <button onclick="saveSettings()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                    💾 حفظ الإعدادات
+                </button>
+                
+                <button onclick="openDownloadFolder()" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm">
+                    📂 فتح المجلد
+                </button>
+                
+                <button class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm">
+                    🗑️ مسح الملفات
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md mx-4">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">تأكيد حفظ الإعدادات</h3>
+                <p class="text-gray-600 mb-6">هل أنت متأكد من حفظ هذه الإعدادات؟</p>
+                <div class="flex space-x-3 space-x-reverse">
+                    <button onclick="confirmSave()" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        نعم، احفظ
+                    </button>
+                    <button onclick="hideModal()" class="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                        إلغاء
+                    </button>
                 </div>
             </div>
         </div>
@@ -154,6 +173,68 @@
             });
         }
 
+        function saveSettings() {
+            showModal();
+        }
+
+        function confirmSave() {
+            try {
+                const settings = {
+                    quality: document.querySelector('input[name="quality"]:checked')?.value || '720p',
+                    autoThumbnail: document.querySelectorAll('input[type="checkbox"]')[0].checked,
+                    autoDownload: document.querySelectorAll('input[type="checkbox"]')[1].checked,
+                    keepLogs: document.querySelectorAll('input[type="checkbox"]')[2].checked
+                };
+                
+                localStorage.setItem('videoDownloaderSettings', JSON.stringify(settings));
+                console.log('Settings saved:', settings);
+                hideModal();
+                showNotification('تم حفظ الإعدادات بنجاح', 'success');
+            } catch (error) {
+                console.error('Error saving settings:', error);
+                hideModal();
+                showNotification('فشل في حفظ الإعدادات', 'error');
+            }
+        }
+
+        function showModal() {
+            document.getElementById('confirmModal').classList.remove('hidden');
+        }
+
+        function hideModal() {
+            document.getElementById('confirmModal').classList.add('hidden');
+        }
+
+        function loadSettings() {
+            try {
+                const settings = JSON.parse(localStorage.getItem('videoDownloaderSettings') || '{}');
+                console.log('Loading settings:', settings);
+                
+                // Load quality setting
+                if (settings.quality) {
+                    const qualityInput = document.querySelector(`input[name="quality"][value="${settings.quality}"]`);
+                    if (qualityInput) {
+                        qualityInput.checked = true;
+                        qualityInput.closest('label').classList.add('border-blue-300', 'bg-blue-50');
+                    }
+                }
+                
+                // Load checkbox settings
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                if (settings.autoThumbnail !== undefined && checkboxes[0]) {
+                    checkboxes[0].checked = settings.autoThumbnail;
+                }
+                if (settings.autoDownload !== undefined && checkboxes[1]) {
+                    checkboxes[1].checked = settings.autoDownload;
+                }
+                if (settings.keepLogs !== undefined && checkboxes[2]) {
+                    checkboxes[2].checked = settings.keepLogs;
+                }
+            } catch (error) {
+                console.error('Error loading settings:', error);
+            }
+        }
+
         function showNotification(message, type) {
             const notification = document.createElement('div');
             notification.className = `fixed top-4 left-4 px-6 py-3 rounded-lg text-white font-medium z-50 ${
@@ -163,5 +244,7 @@
             document.body.appendChild(notification);
             setTimeout(() => notification.remove(), 3000);
         }
+
+        document.addEventListener('DOMContentLoaded', loadSettings);
     </script>
 </x-layout>

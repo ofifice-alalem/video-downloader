@@ -8,6 +8,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #2563eb, #7c3aed); }
+        .scrollbar-thin { scrollbar-width: thin; scrollbar-color: #3b82f6 #f1f5f9; }
+        .scrollbar-left { direction: rtl; }
+        .scrollbar-left::-webkit-scrollbar { width: 4px; }
+        .scrollbar-left::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+        .scrollbar-left::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 10px; }
+    </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -37,7 +48,7 @@
         
         <x-sidebar />
         <div class="flex-1 flex flex-col lg:flex-row">
-            <main class="flex-1 p-4 lg:p-6">
+            <main class="flex-1 p-4 lg:p-6 overflow-y-auto h-full scrollbar-left">
                 {{ $slot }}
             </main>
             <x-downloads-panel />
